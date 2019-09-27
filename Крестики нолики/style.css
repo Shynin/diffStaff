@@ -1,0 +1,26 @@
+body {
+    background-color: blanchedalmond;
+}
+.zero {
+    background-image: url("zero.png");
+}
+.player {
+    background-image: url("player.png");
+}
+.actions {
+    text-align: center;
+}
+.container {
+    margin: 50px auto;
+    width: 300px;
+}
+.cell {
+    background-color: aquamarine;
+    border: 1px solid lightsalmon ;
+    float: left;
+    height: 96px;
+    width: 96px;
+}
+.cell:hover{
+    border-color: red; 
+}
