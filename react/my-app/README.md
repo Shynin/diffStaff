@@ -1,6 +1,18 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+
+### Properties:
+
+| Property name| property values | description |
+| --- | ------ | ------ |
+| color | primary / secondary / danger / grey | changes style of the button  |
+| size | s / m / l | changes size of the button |
+| icon | exp: {component: < Close />, isLeft: false} | adds icon to the button (exp: added close icon on the left) |
+| isLeft | true / false | determines the position of the icon |
+| disabled | true / false | determines the state of the icon |
+| text | "any text" | any text to show on the button |
+
+
 
 In the project directory, you can run:
 

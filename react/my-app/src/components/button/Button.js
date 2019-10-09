@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 export default class Button extends Component {
-    constructor(props) {
-        super(props)
+    // constructor(props) {
+    //     super(props)
         // this.state = {
         //     size: props.size,
         //     color: props.color,
@@ -13,7 +13,7 @@ export default class Button extends Component {
         //     // icon: props.icon || { url: props.loader, isLeft: true }
         //     icon: props.icon
         // }
-    }
+    // }
 
     getClassNames(){
         var classNames = [];
@@ -24,17 +24,10 @@ export default class Button extends Component {
             classNames.push(this.props.color)
         if (this.props.size)
             classNames.push(this.props.size)
+        if (this.props.text)
+            classNames.push(this.props.text)
 
         return classNames.join(" ");
-    }
-
-    onClick(e) {
-        if (this.props.disabled)
-        {
-            e.preventDefault();
-            return;
-        }
-        this.props.onClick(e);
     }
 
     renderChildren(){
@@ -42,26 +35,39 @@ export default class Button extends Component {
         {
             return this.props.icon.isLeft ?
                 <React.Fragment>
-                    {this.props.icon.component}
-                    {this.props.text}
+                    <div>
+                        {this.props.icon.component}
+                        <span>{this.props.text}</span>
+                    </div>
                 </React.Fragment>
                 : <React.Fragment>
-                    {this.props.text}
-                    {this.props.icon.component}
+                    <div>
+                        <span>{this.props.text}</span>
+                        {this.props.icon.component}
+                    </div>
                 </React.Fragment>
         }
         return this.props.text
     }
 
+    handleClick(e) {
+        if (this.props.disabled)
+        {
+            e.preventDefault();
+            return;
+        }
+        console.log(this.props.text);
+    }
+
     getButton(){
         return <StyledButton
-                style={this.props.style}
-                className={this.getClassNames()}
-                icon={this.props.icon}
-                onClick={this.onClick.bind(this)}
-            >
-                {this.renderChildren()}
-            </StyledButton>
+                    style={this.props.style}
+                    className={this.getClassNames()}
+                    icon={this.props.icon}
+                    onClick={this.handleClick.bind(this)}
+                >
+                    {this.renderChildren()}
+                </StyledButton>
     }
 
     render() {
@@ -74,13 +80,6 @@ export default class Button extends Component {
         } return this.getButton()
     };
 }
-
-
-// TODO disabled without click
-// Disabled as a state????
-// TODO content if empty needed?
-// как добавлять другие пропсы, почему ислефт нет в пропсах
-// стейт не использовали, он должен быть логическим?
 
 const StyledButton = styled.button`
     position: relative;
@@ -96,146 +95,35 @@ const StyledButton = styled.button`
     display: inline-block;
     text-decoration: none;
     margin: 0px 25px 19px 0px;
-    padding-left: ${props => props.icon && props.icon.isLeft ? "40px" : ""};
-    padding-right: ${props => props.icon && !props.icon.isLeft ? "40px" : ""};
 
-    &:before{
-        content: " ";
-        background-size: cover;
-        background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
-        background-position: center;
-        position: absolute;
-        left: 15px;
-        top: 8px;
-        width: 20px;
-        height: 20px;
-    }
-    &:after{
-        content: " ";
-        background-size: cover;
-        background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
-        background-position: center;
-        position: absolute;
-        right: 15px;
-        top: 8px;
-        width: 20px;
-        height: 20px;
+    div{
+        display: flex;
+        align-items: center;
+
+        span{
+            padding-left: ${props => props.icon && props.icon.isLeft ? "10px" : ""};
+            padding-right: ${props => props.icon && !props.icon.isLeft ? "10px" : ""};
+        }
     }
 
 
     &.s{
         padding: 5px 15px;
-        padding-left: ${props => props.icon && props.icon.isLeft ? "33px" : ""};
-        padding-right: ${props => props.icon && !props.icon.isLeft ? "33px" : ""};
-
-        &:before{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            left: 7px;
-            top: 3px;
-            width: 20px;
-            height: 20px;
-        }
-        &:after{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            right: 7px;
-            top: 4px;
-            width: 20px;
-            height: 20px;
-        }
     }
 
     &.m{
         padding: 10px 20px;
-        padding-left: ${props => props.icon && props.icon.isLeft ? "40px" : ""};
-        padding-right: ${props => props.icon && !props.icon.isLeft ? "40px" : ""};
-
-        &:before{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            left: 15px;
-            top: 8px;
-            width: 20px;
-            height: 20px;
-        }
-        &:after{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            right: 15px;
-            top: 8px;
-            width: 20px;
-            height: 20px;
-        }
     }
 
     &.l{
         padding: 15px 25px;
-        padding-left: ${props => props.icon && props.icon.isLeft ? "45px" : ""};
-        padding-right: ${props => props.icon && !props.icon.isLeft ? "45px" : ""};
-
-        &:before{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            left: 17px;
-            top: 13px;
-            width: 20px;
-            height: 20px;
-        }
-        &:after{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            right: 17px;
-            top: 13px;
-            width: 20px;
-            height: 20px;
-        }
     }
 
     &.empty{
-        padding: 15px;
-        // padding-left: ${props => props.icon && props.icon.isLeft ? "45px" : ""};
-        // padding-right: ${props => props.icon && !props.icon.isLeft ? "45px" : ""};
-
-        &:before{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            left: 6px;
-            top: 6px;
-            width: 20px;
-            height: 20px;
-        }
-        &:after{
-            content: " ";
-            background-size: cover;
-            background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
-            background-position: center;
-            position: absolute;
-            right: 6px;
-            top: 6px;
-            width: 20px;
-            height: 20px;
+        padding: 8px;
+        span {
+            padding-left: 0px;
+            padding-right: 0px;
         }
     }
 
@@ -249,7 +137,7 @@ const StyledButton = styled.button`
         color: #268bff;
     }
 
-    &.disabled{
+    &.grey{
         background-color: rgb(238, 238, 238);
         color: rgb(171, 168, 168);;
         cursor: not-allowed;
@@ -259,7 +147,6 @@ const StyledButton = styled.button`
         }
 
         &:active{
-            // border: 1px solid #268bff;
             box-shadow: none;
         }
     }
@@ -278,3 +165,29 @@ const StyledButton = styled.button`
         box-shadow: 0px 0 2px 0px #268bff;
     }
 `;
+
+
+
+
+    // &:before{
+    //     content: " ";
+    //     background-size: cover;
+    //     background: url(${props => props.icon && props.icon.isLeft && props.icon.url});
+    //     background-position: center;
+    //     position: absolute;
+    //     left: 15px;
+    //     top: 8px;
+    //     width: 20px;
+    //     height: 20px;
+    // }
+    // &:after{
+    //     content: " ";
+    //     background-size: cover;
+    //     background: url(${props => props.icon && !props.icon.isLeft && props.icon.url});
+    //     background-position: center;
+    //     position: absolute;
+    //     right: 15px;
+    //     top: 8px;
+    //     width: 20px;
+    //     height: 20px;
+    // }
